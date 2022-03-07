@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+  border: 1px solid purple;
+}
+
+body {
+  font-family: "Ropa Sans", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.containAll {
+  display: flex;
+  flex-direction: row;
+  height: 600px;
+}
+
+#leftDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+}
+
+h1 {
+  color: darkgray;
+}
+
+/* p {
+  color: rgb(177, 177, 179);
+} */
+
+li {
+  list-style-type: none;
+  margin: 10px 15px;
+}
+
+ul {
+  padding: 0;
+}
+
+#middleDiv {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.bottomBar {
+  border: 1px solid gray;
+  width: 100%;
+}
+
+.bottomBar p {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 32.5rem;
+}
+
+.grid {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.cell {
+  border: 0.5px solid rgb(174, 175, 174);
+  width: calc(100% / 10);
+  height: calc(100% / 10);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Test img */
+.goodItems {
+  background-image: url("kisspng-dollar-sign-scalable-vector-graphics-symbol-vector-money-symbol-5a9a2892ccd255.998545541520052370839.png");
+}
+
+/* .badItems {
+  background-image: url("kisspng-dollar-sign-scalable-vector-graphics-symbol-vector-money-symbol-5a9a2892ccd255.998545541520052370839.png");
+} */
+
+/* Will see what to add as a "item caught" image or if I just remove the img after it's caught
+/* .marmalade.eaten {
+  background-image: url('https://static.wikia.nocookie.net/paddingtonbear/images/f/fa/Spilled_Jar_of_Marmalade.png');
+} */
+
+.playerImg {
+  background-image: url("Frog-Meme-PNG-Transparent.png");
+}
+
+.player.left {
+  transform: rotate(-90deg);
+}
+
+/* .player.marmalade.eaten {
+  background-image: url("https://2.bp.blogspot.com/-kQFVZT-wee4/XFW4-K-crkI/AAAAAAAAI_U/60FpZ-gaeJEitxhvBev2gcI1xOUrVy1YwCLcBGAs/s1600/Paddington%2BTransparent.png"),
+    url("https://static.wikia.nocookie.net/paddingtonbear/images/f/fa/Spilled_Jar_of_Marmalade.png");
+} */
+
+.enemy {
+  background-image: url("Frog-Meme-PNG-Transparent.png");
+  background-color: red;
+}
+
+/* @media (max-width:500px){
+  .container {
+  width: 200px;
+  height: 200px ;
+} 
+}
+
+  .cell{
+  width: calc( 100% / 10);
+  height:cacl( 100% / 10);
+  background-color: palevioletred;
+ } */
+
+#rightDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 15px;
+}
+
+.playerImg {
+  width: 50px;
+}
+
+#itemsCaught {
+}
+
+#totalItems {
+}

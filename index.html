@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hey</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TBD</title>
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+
+    <div class="containAll">
+      <div id="leftDiv">
+        <h1>Name of game TBD</h1>
+        <p>
+          <ul>
+            <li>- Get all the bags </li>
+            <li>- Be careful not to bum into the whatevs</li>
+            <li>- Beware of the enemy</li>
+            <li>- Use the arrow keys on your keyboard to move around</li>
+          </ul>
+        </p>
+    </div>
+
+    <div id="middleDiv">
+      <div class="container"><div class="grid"></div></div>
+      <div class="bottomBar"><p>Press play to enter</p></div>
+    </div>
+    
+    <div id="rightDiv">
+      <img class="rightSection" id="playerImg"src="Frog-Meme-PNG-Transparent.png" alt="frog image">
+      <div class="rightSection "id="itemsCount"><p>Bags: <span id="itemsCaught">0</span> / <span id="itemsTotal">5</span></p></div>
+      <div class="rightSection" id="lifeBar">Life</div>
+    </div>
+
+    <script src="./main.js"></script>
+
+    </div>
+  </body>
 </html>
