@@ -1,21 +1,22 @@
 const gridElement = document.querySelector(".grid");
 
 // Cells
-const gridWidth = 10;
-const gridHeight = 10;
+const gridWidth = 9;
+const gridHeight = 9;
 const cells = [];
 
-let score = 0;
+// let score = 0;
 
-let nbMarmelade = 0;
-let eatenMarmalades = 0;
-// which CELL INDEX is the character at
+// let nbMarmelade = 0;
+// let eatenMarmalades = 0;
+
+// // which CELL INDEX is the character at
 const initialPosition = 0;
 let currentPosition = initialPosition;
 
-// which CELL INDEX is the character at
-const npgInitialPosition = gridWidth * gridHeight - 1;
-let npgCurrentPosition = npgInitialPosition;
+// which CELL INDEX is the enemy at
+const enemyInitialPosition = gridWidth * gridHeight - 1;
+let enemyCurrentPosition = enemyInitialPosition;
 
 // Populate the grid
 for (let i = 0; i < gridWidth * gridHeight; i++) {
@@ -33,37 +34,38 @@ function createCell() {
 
 function showPlayer(classToAdd) {
   // Show the player in the currentPosition
-  cells[currentPosition].classList.add("paddington");
+  cells[currentPosition].classList.add("playerImg");
   if (classToAdd) {
     cells[currentPosition].classList.add(classToAdd);
   }
 }
 
-function showNpg(classToAdd) {
+function showEnemy(classToAdd) {
   // Show the player in the currentPosition
-  cells[npgCurrentPosition].classList.add("enemy");
+  cells[enemyCurrentPosition].classList.add("enemyImg");
   if (classToAdd) {
-    cells[npgCurrentPosition].classList.add(classToAdd);
+    cells[enemyCurrentPosition].classList.add(classToAdd);
   }
 }
 
-function showMarmalade(position) {
-  cells[position].classList.add("marmalade");
-}
+// function showMarmalade(position) {
+//   cells[position].classList.add("goodItems");
+// }
 
-function eatMarmalade(position) {
-  cells[position].classList.add("eaten");
-}
+// function eatMarmalade(position) {
+//   cells[position].classList.add("eaten");
+// }
 
+// Pour changer de case
 function removePlayer() {
   // Stop showing the player in the currentPosition
-  cells[currentPosition].classList.remove("paddington", "left");
+  cells[currentPosition].classList.remove("playerImg", "left");
 }
 
-function removeNpg() {
-  // Stop showing the player in the currentPosition
-  cells[npgCurrentPosition].classList.remove("enemy", "left");
-}
+// function removeNpg() {
+//   // Stop showing the player in the currentPosition
+//   cells[npgCurrentPosition].classList.remove("enemyImg", "left");
+// }
 
 function movePlayer(newPosition, classToAdd) {
   if (newPosition < 0) {
@@ -75,97 +77,96 @@ function movePlayer(newPosition, classToAdd) {
   removePlayer();
   currentPosition = newPosition;
 
-  if (isUneatenMarmalade(newPosition)) {
-    score += 50;
-    console.log("SCORE", score);
-    eatMarmalade(newPosition);
-    eatenMarmalades++;
-    console.log("eatenMarmalades", eatenMarmalades);
-  }
+  //   if (isUneatenMarmalade(newPosition)) {
+  //     score += 50;
+  //     console.log("SCORE", score);
+  //     eatMarmalade(newPosition);
+  //     eatenMarmalades++;
+  //     console.log("eatenMarmalades", eatenMarmalades);
+  //   }
 
-  if (eatenMarmalades === nbMarmelade) {
-    clearInterval(intervalID);
-    console.log("NO MORE MARMELADE : GAME OVER");
-    console.log("YOU SCORE ", score);
-    console.log("EVIL PADDINGTON SCORE", npgScore);
-  }
+  //   if (eatenMarmalades === nbMarmelade) {
+  //     clearInterval(intervalID);
+  //     console.log("NO MORE MARMELADE : GAME OVER");
+  //     console.log("YOU SCORE ", score);
+  //     console.log("EVIL PADDINGTON SCORE", npgScore);
+  //   }
 
   // Always show last
   showPlayer(classToAdd);
 }
 
-function moveNpg(newPosition, classToAdd) {
-  if (newPosition < 0) {
-    return;
-  }
-  if (newPosition > gridWidth * gridHeight - 1) {
-    return;
-  }
+// function moveNpg(newPosition, classToAdd) {
+//   if (newPosition < 0) {
+//     return;
+//   }
+//   if (newPosition > gridWidth * gridHeight - 1) {
+//     return;
+//   }
 
-  removeNpg();
-  npgCurrentPosition = newPosition;
+//   removeNpg();
+//   npgCurrentPosition = newPosition;
 
-  if (currentPosition === npgCurrentPosition) {
-    clearInterval(intervalID);
-    console.log("COLLISION : GAME OVER");
-  }
-  if (isUneatenMarmalade(newPosition)) {
-    npgScore += 50;
-    console.log("EVIL PADDINGTON ATE YOUR MARMELADE", npgScore);
-    eatMarmalade(newPosition);
-    eatenMarmalades++;
-    console.log("eatenMarmalades", eatenMarmalades);
-  }
-  if (eatenMarmalades === nbMarmelade) {
-    clearInterval(intervalID);
-    console.log("NO MORE MARMELADE : GAME OVER");
-    console.log("YOU SCORE ", score);
-    console.log("EVIL PADDINGTON SCORE", npgScore);
-  }
+//   if (currentPosition === npgCurrentPosition) {
+//     clearInterval(intervalID);
+//     console.log("COLLISION : GAME OVER");
+//   }
+//   if (isUneatenMarmalade(newPosition)) {
+//     npgScore += 50;
+//     console.log("EVIL PADDINGTON ATE YOUR MARMELADE", npgScore);
+//     eatMarmalade(newPosition);
+//     eatenMarmalades++;
+//     console.log("eatenMarmalades", eatenMarmalades);
+//   }
+//   if (eatenMarmalades === nbMarmelade) {
+//     clearInterval(intervalID);
+//     console.log("NO MORE MARMELADE : GAME OVER");
+//     console.log("YOU SCORE ", score);
+//     console.log("EVIL PADDINGTON SCORE", npgScore);
+//   }
 
-  // Always show last
-  showNpg(classToAdd);
-}
+//   // Always show last
+//   showNpg(classToAdd);
+// }
 
-function decideMoveNpg() {
-  const randMove = Math.floor(Math.random() * 4);
-  console.log("randmove", randMove);
-  switch (randMove) {
-    case 0:
-      moveNpg(npgCurrentPosition - gridWidth);
-      break;
-    case 1:
-      moveNpg(npgCurrentPosition + gridWidth);
-      break;
-    case 2:
-      if (npgCurrentPosition % gridWidth === 0) {
-        break;
-      }
-      moveNpg(npgCurrentPosition - 1);
-      break;
-    case 3:
-      if (npgCurrentPosition % gridWidth === gridWidth - 1) {
-        break;
-      }
-      moveNpg(npgCurrentPosition + 1);
-      break;
-  }
-}
+// function decideMoveNpg() {
+//   const randMove = Math.floor(Math.random() * 4);
+//   console.log("randmove", randMove);
+//   switch (randMove) {
+//     case 0:
+//       moveNpg(npgCurrentPosition - gridWidth);
+//       break;
+//     case 1:
+//       moveNpg(npgCurrentPosition + gridWidth);
+//       break;
+//     case 2:
+//       if (npgCurrentPosition % gridWidth === 0) {
+//         break;
+//       }
+//       moveNpg(npgCurrentPosition - 1);
+//       break;
+//     case 3:
+//       if (npgCurrentPosition % gridWidth === gridWidth - 1) {
+//         break;
+//       }
+//       moveNpg(npgCurrentPosition + 1);
+//       break;
+//   }
+// }
 
-function isUneatenMarmalade(position) {
-  const isMarmalade = cells[position].classList.contains("marmalade");
-  const isEaten = cells[position].classList.contains("eaten");
-  return isMarmalade && !isEaten;
-}
+// function isUneatenMarmalade(position) {
+//   const isMarmalade = cells[position].classList.contains("marmalade");
+//   const isEaten = cells[position].classList.contains("eaten");
+//   return isMarmalade && !isEaten;
+// }
 
-// show initial position
+// // show initial position
+// showNpg();
 showPlayer();
-showNpg();
-
-intervalID = setInterval(decideMoveNpg, 1000);
+// intervalID = setInterval(decideMoveNpg, 1000);
 
 document.addEventListener("keydown", function (event) {
-  console.log(event.key, event.keyCode, event.code);
+  console.log(event.key, event.key, event.code);
 
   switch (event.key) {
     case "ArrowUp":
@@ -189,13 +190,13 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-function randomlyPlaceMarmalade() {
-  const randomPosition = Math.floor(Math.random() * cells.length);
-  showMarmalade(randomPosition);
-  nbMarmelade++;
-}
+// function randomlyPlaceMarmalade() {
+//   const randomPosition = Math.floor(Math.random() * cells.length);
+//   showMarmalade(randomPosition);
+//   nbMarmelade++;
+// }
 
-for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
-  randomlyPlaceItems();
-  console.log("nbMarmelade", nbMarmelade);
-}
+// for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
+//   randomlyPlaceItems();
+//   console.log("nbMarmelade", nbMarmelade);
+// }

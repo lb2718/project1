@@ -17,6 +17,8 @@ body {
   height: 600px;
 }
 
+/* -------------------------------- LEFT DIV / SECTION -------------------------------- */
+
 #leftDiv {
   display: flex;
   flex-direction: column;
@@ -41,19 +43,20 @@ ul {
   padding: 0;
 }
 
+/* -------------------------------- MIDDLE DIV / SECTION -------------------------------- */
+
 #middleDiv {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 50%;
 }
 
-.bottomBar {
-  border: 1px solid gray;
+button {
+  border: 1px solid rgb(180, 179, 179);
   width: 100%;
-}
-
-.bottomBar p {
-  width: 100%;
+  margin: auto;
+  height: 40px;
 }
 
 .container {
@@ -70,33 +73,38 @@ ul {
 
 .cell {
   border: 0.5px solid rgb(174, 175, 174);
-  width: calc(100% / 10);
-  height: calc(100% / 10);
+  width: calc(100% / 9);
+  height: calc(100% / 9);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-/* Test img */
+/* -------------------------------- IMAGES / IMG ROTATIONS -------------------------------- */
+
+/* Items that need to be caught to win */
 .goodItems {
   background-image: url("kisspng-dollar-sign-scalable-vector-graphics-symbol-vector-money-symbol-5a9a2892ccd255.998545541520052370839.png");
 }
 
-/* .badItems {
-  background-image: url("kisspng-dollar-sign-scalable-vector-graphics-symbol-vector-money-symbol-5a9a2892ccd255.998545541520052370839.png");
-} */
+.badItems {
+  background-image: url("img/paper.png");
+}
 
 /* Will see what to add as a "item caught" image or if I just remove the img after it's caught
 /* .marmalade.eaten {
   background-image: url('https://static.wikia.nocookie.net/paddingtonbear/images/f/fa/Spilled_Jar_of_Marmalade.png');
 } */
 
+/* Player img */
 .playerImg {
-  background-image: url("Frog-Meme-PNG-Transparent.png");
+  background-image: url("img/trumpy.jpg");
 }
 
-.player.left {
-  transform: rotate(-90deg);
+/* Enemy img */
+.enemyImg {
+  background-image: url("img/mel.png");
+  background-color: red;
 }
 
 /* .player.marmalade.eaten {
@@ -104,9 +112,8 @@ ul {
     url("https://static.wikia.nocookie.net/paddingtonbear/images/f/fa/Spilled_Jar_of_Marmalade.png");
 } */
 
-.enemy {
-  background-image: url("Frog-Meme-PNG-Transparent.png");
-  background-color: red;
+.player.left {
+  transform: rotate(-90deg);
 }
 
 /* @media (max-width:500px){
@@ -122,6 +129,8 @@ ul {
   background-color: palevioletred;
  } */
 
+/* -------------------------------- LEFT DIV / SECTION -------------------------------- */
+
 #rightDiv {
   display: flex;
   flex-direction: column;
@@ -136,8 +145,9 @@ ul {
   margin: 10px 15px;
 }
 
-.playerImg {
-  width: 50px;
+#defaultPic {
+  width: 180px;
+  margin: 0 auto;
 }
 
 #itemsCaught {
