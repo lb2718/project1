@@ -1,18 +1,19 @@
 const gridElement = document.querySelector(".grid");
 const buttonElement = document.querySelector("button");
-const itemsDisplay = document.querySelector("itemsCaught");
+const scoreDisplay = document.querySelector("itemsCaught");
 // Accessing img (right div) for it to change depending on LIfe Bar level
 const imgElement = document.querySelector(".defaultPic");
+const totalItems = document.querySelector("#itemsTotal");
 
 // Cells
 const gridWidth = 8;
 const gridHeight = 8;
 const cells = [];
 
-// let score = 0;
+let score = 0;
 
 let nbItems = 0;
-// let caughtItems = 0;
+let caughtItems = 0;
 
 // which CELL INDEX is the character at
 // faire row et column comme enemy?
@@ -82,6 +83,20 @@ function removeEnemy() {
   cells[enemyCurrentPosition].classList.remove("enemyImg", "left");
 }
 
+function openDoor() {}
+
+function catchItem() {
+  console.log(currentPosition, "-----");
+  if (cells[currentPosition].classList.contains("items")) {
+    caughtItems++;
+    scoreDisplay.textContent = caughtItems;
+    cells[currentPosition].classList.remove("items");
+  }
+  if (caughtItems >= +totalItems.textContent) {
+    openDoor();
+  }
+}
+
 function movePlayer(newPosition, classToAdd) {
   if (newPosition < 0) {
     return;
@@ -89,6 +104,7 @@ function movePlayer(newPosition, classToAdd) {
   if (newPosition > gridWidth * gridHeight - 1) {
     return;
   }
+
   removePlayer();
   currentPosition = newPosition;
 
@@ -154,39 +170,49 @@ function moveEnemy(newPosition, classToAdd) {
 
 function decideMoveEnemy() {
   const randMove = Math.floor(Math.random() * 4);
-  console.log("randmove", randMove);
-  console.log(cells[enemyCurrentPosition - gridWidth]);
+  // console.log("randmove", randMove);
+  // console.log(cells[enemyCurrentPosition - gridWidth]);
   switch (randMove) {
-    // Enemy goes down
+    // Enemy goes up
     case 0:
-      if (cells[enemyCurrentPosition - gridWidth].classList.contains("items")) {
+      if (
+        enemyCurrentPosition < gridWidth ||
+        cells[enemyCurrentPosition - gridWidth].classList.contains("items")
+      ) {
         decideMoveEnemy();
+        break;
       }
       moveEnemy(enemyCurrentPosition - gridWidth);
       break;
-    // Enemy goes up
+    // Enemy goes down
     case 1:
-      if (cells[enemyCurrentPosition + gridWidth].classList.contains("items")) {
+      if (
+        enemyCurrentPosition >= gridWidth * gridHeight - gridWidth ||
+        cells[enemyCurrentPosition + gridWidth].classList.contains("items")
+      ) {
         decideMoveEnemy();
+        break;
       }
       moveEnemy(enemyCurrentPosition + gridWidth);
       break;
-    // Enemy goes idk, left or right
+    // Enemy goes left
     case 2:
+      if (enemyCurrentPosition % gridWidth === 0) {
+        break;
+      }
       if (cells[enemyCurrentPosition - 1].classList.contains("items")) {
         decideMoveEnemy();
-      }
-      if (enemyCurrentPosition % gridWidth === 0) {
         break;
       }
       moveEnemy(enemyCurrentPosition - 1);
       break;
-    // Enemy goes opposite than before
+    // Enemy goes right
     case 3:
+      if (enemyCurrentPosition % gridWidth === gridWidth - 1) {
+        break;
+      }
       if (cells[enemyCurrentPosition + 1].classList.contains("items")) {
         decideMoveEnemy();
-      }
-      if (enemyCurrentPosition % gridWidth === gridWidth - 1) {
         break;
       }
       moveEnemy(enemyCurrentPosition + 1);
@@ -208,7 +234,7 @@ function getEnemyPosition() {
 // show initial position
 showPlayer();
 
-intervalID = setInterval(decideMoveEnemy, 500);
+intervalID = setInterval(decideMoveEnemy, 300);
 
 document.addEventListener("keydown", function (event) {
   console.log(event.key, event.key, event.code);
@@ -246,7 +272,7 @@ for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
   console.log("nbItems", nbItems);
 }
 
-showItems();
+// showItems();
 decideMoveEnemy();
 getEnemyPosition();
 
@@ -254,5 +280,3 @@ getEnemyPosition();
 // function pressPlay() {
 //   const keyUp = buttonElement.addEventListener("keyup", function () {});
 // }
-
-// function addScore()
