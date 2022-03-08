@@ -2,7 +2,7 @@
 
 * {
   box-sizing: border-box;
-  border: 1px solid purple;
+  /* border: 1px solid purple; */
 }
 
 body {
@@ -14,7 +14,8 @@ body {
 .containAll {
   display: flex;
   flex-direction: row;
-  height: 600px;
+  height: 590px;
+  margin: 15px 0 0 0;
 }
 
 /* -------------------------------- LEFT DIV / SECTION -------------------------------- */
@@ -24,6 +25,7 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 30%;
+  padding: 0 30px;
 }
 
 h1 {
@@ -36,11 +38,13 @@ h1 {
 
 li {
   list-style-type: none;
-  margin: 10px 15px;
+  margin: 15px 0;
+  padding: 0 20px;
 }
 
 ul {
   padding: 0;
+  border: 2px solid rgb(206, 205, 205);
 }
 
 /* -------------------------------- MIDDLE DIV / SECTION -------------------------------- */
@@ -69,12 +73,13 @@ button {
   height: 100%;
   width: 100%;
   flex-wrap: wrap;
+  border: 3px solid rgb(196, 194, 194);
 }
 
 .cell {
-  border: 0.5px solid rgb(174, 175, 174);
-  width: calc(100% / 9);
-  height: calc(100% / 9);
+  /* border: 0.5px solid rgb(174, 175, 174); */
+  width: calc(100% / 8);
+  height: calc(100% / 8);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -83,12 +88,8 @@ button {
 /* -------------------------------- IMAGES / IMG ROTATIONS -------------------------------- */
 
 /* Items that need to be caught to win */
-.goodItems {
-  background-image: url("kisspng-dollar-sign-scalable-vector-graphics-symbol-vector-money-symbol-5a9a2892ccd255.998545541520052370839.png");
-}
-
-.badItems {
-  background-image: url("img/paper.png");
+.items {
+  background-image: url("img/png-clipart-brown-cash-bag-money-bag-investment-united-states-dollar-coin-money-bag-horse-white.png");
 }
 
 /* Will see what to add as a "item caught" image or if I just remove the img after it's caught
@@ -98,12 +99,12 @@ button {
 
 /* Player img */
 .playerImg {
-  background-image: url("img/trumpy.jpg");
+  background-image: url("img/unknown-person-icon-27.jpg");
 }
 
 /* Enemy img */
 .enemyImg {
-  background-image: url("img/mel.png");
+  background-image: url("img/unknown-person-icon-27.jpg");
   background-color: red;
 }
 
@@ -115,6 +116,14 @@ button {
 .player.left {
   transform: rotate(-90deg);
 }
+
+/* .player.right {
+  transform: rotate(-90deg);
+}
+
+.player.down {
+  transform: rotate(-90deg);
+} */
 
 /* @media (max-width:500px){
   .container {

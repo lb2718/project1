@@ -1,29 +1,38 @@
 const gridElement = document.querySelector(".grid");
+const buttonElement = document.querySelector("button");
+const itemsDisplay = document.querySelector("itemsCaught");
+// Accessing img (right div) for it to change depending on LIfe Bar level
+const imgElement = document.querySelector(".defaultPic");
 
 // Cells
-const gridWidth = 9;
-const gridHeight = 9;
+const gridWidth = 8;
+const gridHeight = 8;
 const cells = [];
 
 // let score = 0;
 
-// let nbMarmelade = 0;
-// let eatenMarmalades = 0;
+let nbItems = 0;
+// let caughtItems = 0;
 
-// // which CELL INDEX is the character at
+// which CELL INDEX is the character at
+// faire row et column comme enemy?
 const initialPosition = 0;
 let currentPosition = initialPosition;
 
 // which CELL INDEX is the enemy at
 const enemyInitialPosition = gridWidth * gridHeight - 1;
-let enemyCurrentPosition = enemyInitialPosition;
+let enemyPosition = { row: 0, column: 0 };
 
-// Populate the grid
-for (let i = 0; i < gridWidth * gridHeight; i++) {
-  const cell = createCell();
-  gridElement.appendChild(cell);
-  // save the cell for later!
-  cells.push(cell);
+// Populate the grid // i = rows
+for (let i = 0; i < gridHeight; i++) {
+  for (let j = 0; j < gridWidth; j++) {
+    const cell = createCell();
+    cell.dataset.row = i;
+    cell.dataset.column = j;
+    gridElement.appendChild(cell);
+    // save the cell for later!
+    cells.push(cell);
+  }
 }
 
 function createCell() {
@@ -43,29 +52,33 @@ function showPlayer(classToAdd) {
 function showEnemy(classToAdd) {
   // Show the player in the currentPosition
   cells[enemyCurrentPosition].classList.add("enemyImg");
+  // Florian's solution, not finished
+  // const enemyCell = document.querySelector(`[]`);
   if (classToAdd) {
     cells[enemyCurrentPosition].classList.add(classToAdd);
   }
 }
 
-// function showMarmalade(position) {
-//   cells[position].classList.add("goodItems");
-// }
+function showItems(position) {
+  const itemsPosition = cells[position].classList.add("items");
+}
 
+// add "remove" items après qu'ils soient caught
 // function eatMarmalade(position) {
 //   cells[position].classList.add("eaten");
 // }
 
-// Pour changer de case
+// To change cell
 function removePlayer() {
   // Stop showing the player in the currentPosition
   cells[currentPosition].classList.remove("playerImg", "left");
 }
 
-// function removeNpg() {
-//   // Stop showing the player in the currentPosition
-//   cells[npgCurrentPosition].classList.remove("enemyImg", "left");
-// }
+//To change cell
+function removeEnemy() {
+  // Stop showing the enemy in the currentPosition
+  cells[enemyCurrentPosition].classList.remove("enemyImg", "left");
+}
 
 function movePlayer(newPosition, classToAdd) {
   if (newPosition < 0) {
@@ -89,81 +102,98 @@ function movePlayer(newPosition, classToAdd) {
   //     clearInterval(intervalID);
   //     console.log("NO MORE MARMELADE : GAME OVER");
   //     console.log("YOU SCORE ", score);
-  //     console.log("EVIL PADDINGTON SCORE", npgScore);
   //   }
 
   // Always show last
   showPlayer(classToAdd);
 }
 
-// function moveNpg(newPosition, classToAdd) {
-//   if (newPosition < 0) {
-//     return;
-//   }
-//   if (newPosition > gridWidth * gridHeight - 1) {
-//     return;
-//   }
+function moveEnemy(newPosition, classToAdd) {
+  if (newPosition < 0) {
+    return;
+  }
+  if (newPosition > gridWidth * gridHeight - 1) {
+    return;
+  }
 
-//   removeNpg();
-//   npgCurrentPosition = newPosition;
+  removeEnemy();
+  enemyCurrentPosition = newPosition;
 
-//   if (currentPosition === npgCurrentPosition) {
-//     clearInterval(intervalID);
-//     console.log("COLLISION : GAME OVER");
-//   }
-//   if (isUneatenMarmalade(newPosition)) {
-//     npgScore += 50;
-//     console.log("EVIL PADDINGTON ATE YOUR MARMELADE", npgScore);
-//     eatMarmalade(newPosition);
-//     eatenMarmalades++;
-//     console.log("eatenMarmalades", eatenMarmalades);
-//   }
-//   if (eatenMarmalades === nbMarmelade) {
-//     clearInterval(intervalID);
-//     console.log("NO MORE MARMELADE : GAME OVER");
-//     console.log("YOU SCORE ", score);
-//     console.log("EVIL PADDINGTON SCORE", npgScore);
-//   }
+  // Collision => life bar - 50%
+  //   if (currentPosition === enemyCurrentPosition) {
+  //     clearInterval(intervalID);
+  //    itemsDisplay - 50 / 100;
+  //    return itemsDisplay
+  //   }
 
-//   // Always show last
-//   showNpg(classToAdd);
+  // Block access to cells containing the items (to the enemy)
+  function blockCellsEnemy() {
+    switch (positionToItem) {
+      // when enemy is in cell above item, enemey can't go down
+      case (enemyCurrentPosition = itemsPosition - 8):
+        removeEnemy;
+        break;
+      // when enemy is in cell below item
+      case (enemyCurrentPosition = itemsposition + 8):
+        // enemy can't go up
+        break;
+      case (enemyCurrentPosition = itemsPosition - 1):
+        // enemy can't go right
+        break;
+      case (enemyCurrentPosition = itemsPosition + 1):
+        // enemy can't go left
+        break;
+    }
+  }
+
+  // if (enemyCurrentPosition === showItems) {
+
+  // }
+
+  // Always show last
+  showEnemy(classToAdd);
+}
+
+function decideMoveEnemy() {
+  const randMove = Math.floor(Math.random() * 4);
+  console.log("randmove", randMove);
+  switch (randMove) {
+    case 0:
+      moveEnemy(enemyCurrentPosition - gridWidth);
+      break;
+    case 1:
+      moveEnemy(enemyCurrentPosition + gridWidth);
+      break;
+    case 2:
+      if (enemyCurrentPosition % gridWidth === 0) {
+        break;
+      }
+      moveEnemy(enemyCurrentPosition - 1);
+      break;
+    case 3:
+      if (enemyCurrentPosition % gridWidth === gridWidth - 1) {
+        break;
+      }
+      moveEnemy(enemyCurrentPosition + 1);
+      break;
+  }
+}
+
+function getEnemyPosition() {
+  let enemy = document.querySelector(".enemyImg");
+  console.log(enemy.dataset);
+}
+
+// function isItemCaught(position) {
+//   const isItem = cells[position].classList.contains("item");
+//   const isCaught = cells[position].classList.contains("caught");
+//   return isItem && !isCaught;
 // }
 
-// function decideMoveNpg() {
-//   const randMove = Math.floor(Math.random() * 4);
-//   console.log("randmove", randMove);
-//   switch (randMove) {
-//     case 0:
-//       moveNpg(npgCurrentPosition - gridWidth);
-//       break;
-//     case 1:
-//       moveNpg(npgCurrentPosition + gridWidth);
-//       break;
-//     case 2:
-//       if (npgCurrentPosition % gridWidth === 0) {
-//         break;
-//       }
-//       moveNpg(npgCurrentPosition - 1);
-//       break;
-//     case 3:
-//       if (npgCurrentPosition % gridWidth === gridWidth - 1) {
-//         break;
-//       }
-//       moveNpg(npgCurrentPosition + 1);
-//       break;
-//   }
-// }
-
-// function isUneatenMarmalade(position) {
-//   const isMarmalade = cells[position].classList.contains("marmalade");
-//   const isEaten = cells[position].classList.contains("eaten");
-//   return isMarmalade && !isEaten;
-// }
-
-// // show initial position
-// showNpg();
+// show initial position
 showPlayer();
-// intervalID = setInterval(decideMoveNpg, 1000);
+
+intervalID = setInterval(decideMoveEnemy, 1000);
 
 document.addEventListener("keydown", function (event) {
   console.log(event.key, event.key, event.code);
@@ -190,13 +220,22 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-// function randomlyPlaceMarmalade() {
-//   const randomPosition = Math.floor(Math.random() * cells.length);
-//   showMarmalade(randomPosition);
-//   nbMarmelade++;
-// }
+function randomlyPlaceItems() {
+  const randomPosition = Math.floor(Math.random() * cells.length);
+  showItems(randomPosition);
+  nbItems++;
+}
 
-// for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
-//   randomlyPlaceItems();
-//   console.log("nbMarmelade", nbMarmelade);
+for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
+  randomlyPlaceItems();
+  console.log("nbItems", nbItems);
+}
+
+showItems();
+decideMoveEnemy();
+getEnemyPosition();
+
+// click "play" to start game
+// function pressPlay() {
+//   const keyUp = buttonElement.addEventListener("keyup", function () {});
 // }
