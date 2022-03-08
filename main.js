@@ -1,6 +1,6 @@
 const gridElement = document.querySelector(".grid");
 const buttonElement = document.querySelector("button");
-const scoreDisplay = document.querySelector("itemsCaught");
+const scoreDisplay = document.querySelector("#itemsCaught");
 // Accessing img (right div) for it to change depending on LIfe Bar level
 const imgElement = document.querySelector(".defaultPic");
 const totalItems = document.querySelector("#itemsTotal");
@@ -69,7 +69,6 @@ function showItems(position) {
 function catchItem(position) {
   cells[position].classList.add("caught");
 }
-catchItem(currentPosition);
 
 // To change cell
 function removePlayer() {
@@ -83,10 +82,12 @@ function removeEnemy() {
   cells[enemyCurrentPosition].classList.remove("enemyImg", "left");
 }
 
-function openDoor() {}
+// To be called when all items are caught
+function openDoor() {
+  const newDoor = Math.floor(Math.random() * gridHeight * gridWidth);
+}
 
 function catchItem() {
-  console.log(currentPosition, "-----");
   if (cells[currentPosition].classList.contains("items")) {
     caughtItems++;
     scoreDisplay.textContent = caughtItems;
@@ -104,6 +105,7 @@ function movePlayer(newPosition, classToAdd) {
   if (newPosition > gridWidth * gridHeight - 1) {
     return;
   }
+  catchItem(currentPosition);
 
   removePlayer();
   currentPosition = newPosition;
@@ -197,10 +199,10 @@ function decideMoveEnemy() {
       break;
     // Enemy goes left
     case 2:
-      if (enemyCurrentPosition % gridWidth === 0) {
-        break;
-      }
-      if (cells[enemyCurrentPosition - 1].classList.contains("items")) {
+      if (
+        enemyCurrentPosition % gridWidth === 0 ||
+        cells[enemyCurrentPosition - 1].classList.contains("items")
+      ) {
         decideMoveEnemy();
         break;
       }
@@ -208,11 +210,10 @@ function decideMoveEnemy() {
       break;
     // Enemy goes right
     case 3:
-      if (enemyCurrentPosition % gridWidth === gridWidth - 1) {
-        break;
-      }
-      if (cells[enemyCurrentPosition + 1].classList.contains("items")) {
-        decideMoveEnemy();
+      if (
+        enemyCurrentPosition % gridWidth === gridWidth - 1 ||
+        cells[enemyCurrentPosition + 1].classList.contains("items")
+      ) {
         break;
       }
       moveEnemy(enemyCurrentPosition + 1);
@@ -222,7 +223,6 @@ function decideMoveEnemy() {
 
 function getEnemyPosition() {
   let enemy = document.querySelector(".enemyImg");
-  console.log(enemy.dataset);
 }
 
 // function isItemCaught(position) {

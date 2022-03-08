@@ -165,3 +165,16 @@ button {
 
 #totalItems {
 }
+
+#lifeBar {
+  border: 1px solid gray;
+  width: 60%;
+  height: 20px;
+  margin: 0 auto;
+  background: linear-gradient(
+    286deg,
+    rgba(147, 255, 0, 1) 29%,
+    rgba(243, 167, 14, 1) 49%,
+    rgba(244, 24, 24, 1) 74%
+  );
+}
