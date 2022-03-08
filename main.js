@@ -21,9 +21,10 @@ let currentPosition = initialPosition;
 
 // which CELL INDEX is the enemy at
 const enemyInitialPosition = gridWidth * gridHeight - 1;
-let enemyPosition = { row: 0, column: 0 };
+let enemyCurrentPosition = enemyInitialPosition;
+// let enemyPosition = { row: 0, column: 0 };
 
-// Populate the grid // i = rows
+// Populate the grid
 for (let i = 0; i < gridHeight; i++) {
   for (let j = 0; j < gridWidth; j++) {
     const cell = createCell();
@@ -60,13 +61,14 @@ function showEnemy(classToAdd) {
 }
 
 function showItems(position) {
-  const itemsPosition = cells[position].classList.add("items");
+  cells[position].classList.add("items");
 }
 
 // add "remove" items après qu'ils soient caught
-// function eatMarmalade(position) {
-//   cells[position].classList.add("eaten");
-// }
+function catchItem(position) {
+  cells[position].classList.add("caught");
+}
+catchItem(currentPosition);
 
 // To change cell
 function removePlayer() {
@@ -127,27 +129,23 @@ function moveEnemy(newPosition, classToAdd) {
   //   }
 
   // Block access to cells containing the items (to the enemy)
-  function blockCellsEnemy() {
-    switch (positionToItem) {
-      // when enemy is in cell above item, enemey can't go down
-      case (enemyCurrentPosition = itemsPosition - 8):
-        removeEnemy;
-        break;
-      // when enemy is in cell below item
-      case (enemyCurrentPosition = itemsposition + 8):
-        // enemy can't go up
-        break;
-      case (enemyCurrentPosition = itemsPosition - 1):
-        // enemy can't go right
-        break;
-      case (enemyCurrentPosition = itemsPosition + 1):
-        // enemy can't go left
-        break;
-    }
-  }
-
-  // if (enemyCurrentPosition === showItems) {
-
+  // function blockCellsEnemy() {
+  //   switch (positionToItem) {
+  //     // when enemy is in cell above item, enemey can't go down
+  //     case (enemyCurrentPosition = itemsPosition - 8):
+  //       removeEnemy;
+  //       break;
+  //     // when enemy is in cell below item
+  //     case (enemyCurrentPosition = itemsposition + 8):
+  //       // enemy can't go up
+  //       break;
+  //     case (enemyCurrentPosition = itemsPosition - 1):
+  //       // enemy can't go right
+  //       break;
+  //     case (enemyCurrentPosition = itemsPosition + 1):
+  //       // enemy can't go left
+  //       break;
+  //   }
   // }
 
   // Always show last
@@ -157,20 +155,37 @@ function moveEnemy(newPosition, classToAdd) {
 function decideMoveEnemy() {
   const randMove = Math.floor(Math.random() * 4);
   console.log("randmove", randMove);
+  console.log(cells[enemyCurrentPosition - gridWidth]);
   switch (randMove) {
+    // Enemy goes down
     case 0:
+      if (cells[enemyCurrentPosition - gridWidth].classList.contains("items")) {
+        decideMoveEnemy();
+      }
       moveEnemy(enemyCurrentPosition - gridWidth);
       break;
+    // Enemy goes up
     case 1:
+      if (cells[enemyCurrentPosition + gridWidth].classList.contains("items")) {
+        decideMoveEnemy();
+      }
       moveEnemy(enemyCurrentPosition + gridWidth);
       break;
+    // Enemy goes idk, left or right
     case 2:
+      if (cells[enemyCurrentPosition - 1].classList.contains("items")) {
+        decideMoveEnemy();
+      }
       if (enemyCurrentPosition % gridWidth === 0) {
         break;
       }
       moveEnemy(enemyCurrentPosition - 1);
       break;
+    // Enemy goes opposite than before
     case 3:
+      if (cells[enemyCurrentPosition + 1].classList.contains("items")) {
+        decideMoveEnemy();
+      }
       if (enemyCurrentPosition % gridWidth === gridWidth - 1) {
         break;
       }
@@ -193,7 +208,7 @@ function getEnemyPosition() {
 // show initial position
 showPlayer();
 
-intervalID = setInterval(decideMoveEnemy, 1000);
+intervalID = setInterval(decideMoveEnemy, 500);
 
 document.addEventListener("keydown", function (event) {
   console.log(event.key, event.key, event.code);
@@ -239,3 +254,5 @@ getEnemyPosition();
 // function pressPlay() {
 //   const keyUp = buttonElement.addEventListener("keyup", function () {});
 // }
+
+// function addScore()
