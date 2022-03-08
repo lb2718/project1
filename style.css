@@ -92,11 +92,6 @@ button {
   background-image: url("img/png-clipart-brown-cash-bag-money-bag-investment-united-states-dollar-coin-money-bag-horse-white.png");
 }
 
-/* Will see what to add as a "item caught" image or if I just remove the img after it's caught
-/* .marmalade.eaten {
-  background-image: url('https://static.wikia.nocookie.net/paddingtonbear/images/f/fa/Spilled_Jar_of_Marmalade.png');
-} */
-
 /* Player img */
 .playerImg {
   background-image: url("img/unknown-person-icon-27.jpg");
@@ -108,17 +103,16 @@ button {
   background-color: red;
 }
 
-/* .player.marmalade.eaten {
-  background-image: url("https://2.bp.blogspot.com/-kQFVZT-wee4/XFW4-K-crkI/AAAAAAAAI_U/60FpZ-gaeJEitxhvBev2gcI1xOUrVy1YwCLcBGAs/s1600/Paddington%2BTransparent.png"),
-    url("https://static.wikia.nocookie.net/paddingtonbear/images/f/fa/Spilled_Jar_of_Marmalade.png");
-} */
+.door {
+  background-image: url("img/png-clipart-door-red-door-angle-rectangle.png");
+}
 
 .player.left {
   transform: rotate(-90deg);
 }
 
 /* .player.right {
-  transform: rotate(-90deg);
+  transform: rotate(+90deg);
 }
 
 .player.down {
@@ -160,7 +154,7 @@ button {
 }
 
 /* //to rename  */
-/* #itemsCaught {
+/* #itemsCaught 
 } */
 
 #totalItems {

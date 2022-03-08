@@ -11,7 +11,6 @@ const gridHeight = 8;
 const cells = [];
 
 let score = 0;
-
 let nbItems = 0;
 let caughtItems = 0;
 
@@ -63,6 +62,13 @@ function showEnemy(classToAdd) {
 
 function showItems(position) {
   cells[position].classList.add("items");
+}
+
+function showDoor(position) {
+  if (+scoreDisplay.textContent === +totalItems.textContent) {
+    placeDoorRandomly();
+    cells[position].classList.add("door");
+  }
 }
 
 // add "remove" items après qu'ils soient caught
@@ -138,33 +144,6 @@ function moveEnemy(newPosition, classToAdd) {
 
   removeEnemy();
   enemyCurrentPosition = newPosition;
-
-  // Collision => life bar - 50%
-  //   if (currentPosition === enemyCurrentPosition) {
-  //     clearInterval(intervalID);
-  //    itemsDisplay - 50 / 100;
-  //    return itemsDisplay
-  //   }
-
-  // Block access to cells containing the items (to the enemy)
-  // function blockCellsEnemy() {
-  //   switch (positionToItem) {
-  //     // when enemy is in cell above item, enemey can't go down
-  //     case (enemyCurrentPosition = itemsPosition - 8):
-  //       removeEnemy;
-  //       break;
-  //     // when enemy is in cell below item
-  //     case (enemyCurrentPosition = itemsposition + 8):
-  //       // enemy can't go up
-  //       break;
-  //     case (enemyCurrentPosition = itemsPosition - 1):
-  //       // enemy can't go right
-  //       break;
-  //     case (enemyCurrentPosition = itemsPosition + 1):
-  //       // enemy can't go left
-  //       break;
-  //   }
-  // }
 
   // Always show last
   showEnemy(classToAdd);
@@ -261,21 +240,42 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-function randomlyPlaceItems() {
+// Position DOOR randomly
+function placeDoorRandomly() {
+  const randomDoorPosition = Math.floor(Math.random() * cells.length);
+  if (currentPosition === randomDoorPosition) {
+    placeDoorRandomly();
+    return;
+  }
+  showDoor(randomDoorPosition);
+}
+
+// Position items randomly
+function placeItemsRandomly() {
   const randomPosition = Math.floor(Math.random() * cells.length);
+  if (
+    randomPosition === initialPosition ||
+    randomPosition === enemyInitialPosition ||
+    cells[randomPosition].classList.contains("items")
+  ) {
+    placeItemsRandomly();
+    return;
+  }
   showItems(randomPosition);
   nbItems++;
 }
 
 for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
-  randomlyPlaceItems();
-  console.log("nbItems", nbItems);
+  placeItemsRandomly();
 }
 
-// showItems();
+if (currentPosition === enemyCurrentPosition) {
+  clearInterval(intervalID);
+  console.log("COLLISION : GAME OVER");
+}
+
 decideMoveEnemy();
 getEnemyPosition();
-
 // click "play" to start game
 // function pressPlay() {
 //   const keyUp = buttonElement.addEventListener("keyup", function () {});
