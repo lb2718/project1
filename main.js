@@ -1,8 +1,7 @@
 const gridElement = document.querySelector(".grid");
 const buttonElement = document.querySelector("button");
 const scoreDisplay = document.querySelector("#itemsCaught");
-// Accessing img (right div) for it to change depending on LIfe Bar level
-const imgElement = document.querySelector(".defaultPic");
+// const imgElement = document.querySelector(".defaultPic");
 const totalItems = +document.querySelector("#itemsTotal").textContent;
 
 // Cells
@@ -67,15 +66,9 @@ function showItems(position) {
 }
 
 function showDoor(position) {
-  console.log(+scoreDisplay.textContent, "hello");
   // placeDoorRandomly();
   cells[position].classList.add("door");
 }
-
-// // add "remove" items après qu'ils soient caught
-// function catchItem(position) {
-//   cells[position].classList.add("caught");
-// }
 
 // To change cell
 function removePlayer() {
@@ -88,11 +81,6 @@ function removeEnemy() {
   // Stop showing the enemy in the currentPosition
   cells[enemyCurrentPosition].classList.remove("enemyImg", "left");
 }
-
-// To be called when all items are caught
-// function openDoor() {
-//   const newDoor = Math.floor(Math.random() * gridHeight * gridWidth);
-// }
 
 function catchItem(position) {
   if (cells[position].classList.contains("items")) {
@@ -120,20 +108,14 @@ function movePlayer(newPosition, classToAdd) {
   if (currentPosition === randomDoorPosition) {
     removeWinner();
   }
+  if (currentPosition === enemyCurrentPosition) {
+    announceGameOver();
+  }
 
-  //   if (isUneatenMarmalade(newPosition)) {
-  //     score += 50;
-  //     console.log("SCORE", score);
-  //     eatMarmalade(newPosition);
-  //     eatenMarmalades++;
-  //     console.log("eatenMarmalades", eatenMarmalades);
-  //   }
-
-  //   if (eatenMarmalades === nbMarmelade) {
-  //     clearInterval(intervalID);
-  //     console.log("NO MORE MARMELADE : GAME OVER");
-  //     console.log("YOU SCORE ", score);
-  //   }
+  function announceGameOver() {
+    clearInterval(intervalID);
+    console.log("GAME OVER");
+  }
 
   // Always show last
   showPlayer(classToAdd);
@@ -149,6 +131,9 @@ function moveEnemy(newPosition, classToAdd) {
 
   removeEnemy();
   enemyCurrentPosition = newPosition;
+  if (currentPosition === enemyCurrentPosition) {
+    announceGameOver();
+  }
 
   // Always show last
   showEnemy(classToAdd);
@@ -157,7 +142,6 @@ function moveEnemy(newPosition, classToAdd) {
 function decideMoveEnemy() {
   const randMove = Math.floor(Math.random() * 4);
   switch (randMove) {
-    // Enemy goes up
     case 0:
       if (
         enemyCurrentPosition < gridWidth ||
@@ -168,7 +152,6 @@ function decideMoveEnemy() {
       }
       moveEnemy(enemyCurrentPosition - gridWidth);
       break;
-    // Enemy goes down
     case 1:
       if (
         enemyCurrentPosition >= gridWidth * gridHeight - gridWidth ||
@@ -179,7 +162,6 @@ function decideMoveEnemy() {
       }
       moveEnemy(enemyCurrentPosition + gridWidth);
       break;
-    // Enemy goes left
     case 2:
       if (
         enemyCurrentPosition % gridWidth === 0 ||
@@ -190,7 +172,6 @@ function decideMoveEnemy() {
       }
       moveEnemy(enemyCurrentPosition - 1);
       break;
-    // Enemy goes right
     case 3:
       if (
         enemyCurrentPosition % gridWidth === gridWidth - 1 ||
@@ -219,7 +200,7 @@ showPlayer();
 intervalID = setInterval(decideMoveEnemy, 300);
 
 document.addEventListener("keydown", function (event) {
-  console.log(event.key, event.key, event.code);
+  // console.log(event.key, event.key, event.code);
 
   switch (event.key) {
     case "ArrowUp":
@@ -255,7 +236,8 @@ function placeDoorRandomly() {
 
 function removeWinner() {
   cells[currentPosition].classList.remove("playerImg");
-  console.log("win");
+  clearInterval(intervalID);
+  console.log("gg t'as gagné");
 }
 
 // Position items randomly
@@ -277,18 +259,6 @@ for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
   placeItemsRandomly();
 }
 
-if (currentPosition === enemyCurrentPosition) {
-  clearInterval(intervalID);
-  console.log("GAME OVER");
-}
-
 decideMoveEnemy();
 getEnemyPosition();
-
-// Error quand appel fonction
-removeWinner();
-
-// click "play" to start game
-// function pressPlay() {
-//   const keyUp = buttonElement.addEventListener("keyup", function () {});
-// }
+// removeWinner();
