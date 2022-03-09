@@ -3,7 +3,7 @@ const buttonElement = document.querySelector("button");
 const scoreDisplay = document.querySelector("#itemsCaught");
 // Accessing img (right div) for it to change depending on LIfe Bar level
 const imgElement = document.querySelector(".defaultPic");
-const totalItems = document.querySelector("#itemsTotal");
+const totalItems = +document.querySelector("#itemsTotal").textContent;
 
 // Cells
 const gridWidth = 8;
@@ -13,6 +13,8 @@ const cells = [];
 let score = 0;
 let nbItems = 0;
 let caughtItems = 0;
+let randomDoorPosition;
+let isThereADoor = false;
 
 // which CELL INDEX is the character at
 // faire row et column comme enemy?
@@ -65,16 +67,15 @@ function showItems(position) {
 }
 
 function showDoor(position) {
-  if (+scoreDisplay.textContent === +totalItems.textContent) {
-    placeDoorRandomly();
-    cells[position].classList.add("door");
-  }
+  console.log(+scoreDisplay.textContent, "hello");
+  // placeDoorRandomly();
+  cells[position].classList.add("door");
 }
 
-// add "remove" items après qu'ils soient caught
-function catchItem(position) {
-  cells[position].classList.add("caught");
-}
+// // add "remove" items après qu'ils soient caught
+// function catchItem(position) {
+//   cells[position].classList.add("caught");
+// }
 
 // To change cell
 function removePlayer() {
@@ -89,18 +90,19 @@ function removeEnemy() {
 }
 
 // To be called when all items are caught
-function openDoor() {
-  const newDoor = Math.floor(Math.random() * gridHeight * gridWidth);
-}
+// function openDoor() {
+//   const newDoor = Math.floor(Math.random() * gridHeight * gridWidth);
+// }
 
-function catchItem() {
-  if (cells[currentPosition].classList.contains("items")) {
+function catchItem(position) {
+  if (cells[position].classList.contains("items")) {
     caughtItems++;
     scoreDisplay.textContent = caughtItems;
-    cells[currentPosition].classList.remove("items");
+    cells[position].classList.remove("items");
   }
-  if (caughtItems >= +totalItems.textContent) {
-    openDoor();
+  if (caughtItems === totalItems && isThereADoor === false) {
+    isThereADoor = true;
+    placeDoorRandomly();
   }
 }
 
@@ -111,10 +113,13 @@ function movePlayer(newPosition, classToAdd) {
   if (newPosition > gridWidth * gridHeight - 1) {
     return;
   }
-  catchItem(currentPosition);
+  catchItem(newPosition);
 
   removePlayer();
   currentPosition = newPosition;
+  if (currentPosition === randomDoorPosition) {
+    removeWinner();
+  }
 
   //   if (isUneatenMarmalade(newPosition)) {
   //     score += 50;
@@ -151,8 +156,6 @@ function moveEnemy(newPosition, classToAdd) {
 
 function decideMoveEnemy() {
   const randMove = Math.floor(Math.random() * 4);
-  // console.log("randmove", randMove);
-  // console.log(cells[enemyCurrentPosition - gridWidth]);
   switch (randMove) {
     // Enemy goes up
     case 0:
@@ -242,12 +245,17 @@ document.addEventListener("keydown", function (event) {
 
 // Position DOOR randomly
 function placeDoorRandomly() {
-  const randomDoorPosition = Math.floor(Math.random() * cells.length);
+  randomDoorPosition = Math.floor(Math.random() * cells.length);
   if (currentPosition === randomDoorPosition) {
     placeDoorRandomly();
     return;
   }
   showDoor(randomDoorPosition);
+}
+
+function removeWinner() {
+  cells[currentPosition].classList.remove("playerImg");
+  console.log("win");
 }
 
 // Position items randomly
@@ -271,11 +279,15 @@ for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
 
 if (currentPosition === enemyCurrentPosition) {
   clearInterval(intervalID);
-  console.log("COLLISION : GAME OVER");
+  console.log("GAME OVER");
 }
 
 decideMoveEnemy();
 getEnemyPosition();
+
+// Error quand appel fonction
+removeWinner();
+
 // click "play" to start game
 // function pressPlay() {
 //   const keyUp = buttonElement.addEventListener("keyup", function () {});

@@ -160,7 +160,7 @@ button {
 #totalItems {
 }
 
-#lifeBar {
+/* #lifeBar {
   border: 1px solid gray;
   width: 60%;
   height: 20px;
@@ -171,4 +171,4 @@ button {
     rgba(243, 167, 14, 1) 49%,
     rgba(244, 24, 24, 1) 74%
   );
-}
+} */
