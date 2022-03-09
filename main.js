@@ -1,3 +1,18 @@
+// POP UP
+const tryagainbutton = document.querySelector("#tryagain");
+const popUp = document.querySelector("section.popUp");
+const popUpBg = document.querySelector(".popUpContent");
+const gameOver = document.querySelector(".gameover");
+const tryAgain = document.querySelector(".tryagain");
+
+// startbutton.addEventListener("click", function (event) {
+//   popUp.classList.add("hidden");
+// });
+
+tryagainbutton.addEventListener("click", function (event) {
+  location.reload();
+});
+
 const gridElement = document.querySelector(".grid");
 const buttonElement = document.querySelector("button");
 const scoreDisplay = document.querySelector("#itemsCaught");
@@ -108,13 +123,13 @@ function movePlayer(newPosition, classToAdd) {
   if (currentPosition === randomDoorPosition) {
     removeWinner();
   }
-  if (currentPosition === enemyCurrentPosition) {
+  if (enemyCurrentPosition === currentPosition) {
     announceGameOver();
   }
 
   function announceGameOver() {
     clearInterval(intervalID);
-    console.log("GAME OVER");
+    popUp.classList.remove("hidden");
   }
 
   // Always show last
@@ -188,16 +203,10 @@ function getEnemyPosition() {
   let enemy = document.querySelector(".enemyImg");
 }
 
-// function isItemCaught(position) {
-//   const isItem = cells[position].classList.contains("item");
-//   const isCaught = cells[position].classList.contains("caught");
-//   return isItem && !isCaught;
-// }
-
 // show initial position
 showPlayer();
 
-intervalID = setInterval(decideMoveEnemy, 300);
+intervalID = setInterval(decideMoveEnemy, 100);
 
 document.addEventListener("keydown", function (event) {
   // console.log(event.key, event.key, event.code);
@@ -237,7 +246,11 @@ function placeDoorRandomly() {
 function removeWinner() {
   cells[currentPosition].classList.remove("playerImg");
   clearInterval(intervalID);
-  console.log("gg t'as gagné");
+  popUpBg.style.backgroundColor = "rgb(203, 248, 203)";
+  gameOver.textContent = "You won";
+  tryAgain.textContent = "Play again";
+
+  popUp.classList.remove("hidden");
 }
 
 // Position items randomly
