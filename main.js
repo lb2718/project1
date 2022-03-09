@@ -268,10 +268,9 @@ function placeItemsRandomly() {
   nbItems++;
 }
 
-for (let i = 0; i < Math.sqrt(gridWidth * gridHeight); i++) {
+for (let i = 0; i < 15; i++) {
   placeItemsRandomly();
 }
 
 decideMoveEnemy();
 getEnemyPosition();
-// removeWinner();
