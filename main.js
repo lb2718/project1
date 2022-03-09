@@ -9,6 +9,12 @@ const tryAgain = document.querySelector(".tryagain");
 //   popUp.classList.add("hidden");
 // });
 
+class Enemy {
+  constructor(position) {
+    this.position = position;
+  }
+}
+
 tryagainbutton.addEventListener("click", function (event) {
   location.reload();
 });
@@ -67,10 +73,8 @@ function showPlayer(classToAdd) {
 }
 
 function showEnemy(classToAdd) {
-  // Show the player in the currentPosition
+  // Show the enemy in the currentPosition
   cells[enemyCurrentPosition].classList.add("enemyImg");
-  // Florian's solution, not finished
-  // const enemyCell = document.querySelector(`[]`);
   if (classToAdd) {
     cells[enemyCurrentPosition].classList.add(classToAdd);
   }
@@ -127,13 +131,13 @@ function movePlayer(newPosition, classToAdd) {
     announceGameOver();
   }
 
-  function announceGameOver() {
-    clearInterval(intervalID);
-    popUp.classList.remove("hidden");
-  }
-
   // Always show last
   showPlayer(classToAdd);
+}
+
+function announceGameOver() {
+  clearInterval(intervalID);
+  popUp.classList.remove("hidden");
 }
 
 function moveEnemy(newPosition, classToAdd) {
@@ -206,7 +210,7 @@ function getEnemyPosition() {
 // show initial position
 showPlayer();
 
-intervalID = setInterval(decideMoveEnemy, 100);
+intervalID = setInterval(decideMoveEnemy, 200);
 
 document.addEventListener("keydown", function (event) {
   // console.log(event.key, event.key, event.code);
@@ -268,7 +272,7 @@ function placeItemsRandomly() {
   nbItems++;
 }
 
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < +totalItems; i++) {
   placeItemsRandomly();
 }
 
