@@ -5,8 +5,18 @@ const popUpBg = document.querySelector(".popUpContent");
 const gameOver = document.querySelector(".gameover");
 const tryAgain = document.querySelector(".tryagain");
 
+// POP UP 2
+const enterBtn = document.querySelector("#enterBtn");
+const popUpStart = document.querySelector("section.popUpStart");
+const popUpStartBg = document.querySelector(".popUpStartContent");
+
 // Reload page when clicking "try again"
 tryagainbutton.addEventListener("click", function (event) {
+  location.reload();
+});
+
+// Reload page when clicking anywhere
+popUp.addEventListener("click", function (event) {
   location.reload();
 });
 
@@ -20,19 +30,30 @@ tryagainbutton.addEventListener("click", function (event) {
 //   popUp.classList.add("hidden");
 // });
 
+enterBtn.addEventListener("click", function (event) {
+  popUpStart.classList.add("hide");
+});
+
+popUpStart.addEventListener("click", function (event) {
+  popUpStart.classList.add("hide");
+});
+
 // AUDIO
 const fakeNews = document.querySelector(".fakenews");
 const goodjob = document.querySelector(".goodjob");
+const winsound = document.querySelector(".winsound");
+const launch = document.querySelector(".launch");
 
+// add name?
 // class Enemy {
 //   constructor(position) {
 //     this.position = position;
 //   }
+
 // }
 
 const gridElement = document.querySelector(".grid");
-const buttonElement = document.querySelector("button");
-const scoreDisplay = document.querySelector("#itemsCaught");
+const itemsCaught = document.querySelector("#itemsCaught");
 // const imgElement = document.querySelector(".defaultPic");
 const totalItems = +document.querySelector("#itemsTotal").textContent;
 
@@ -41,32 +62,24 @@ const gridWidth = 8;
 const gridHeight = 8;
 const cells = [];
 
-let score = 0;
-let nbItems = 0;
 let caughtItems = 0;
 let randomDoorPosition;
 let isThereADoor = false;
 
-// which CELL INDEX is the character at
-// faire row et column comme enemy?
+// which cell index is the PLAYER at
 const initialPosition = 0;
 let currentPosition = initialPosition;
 
-// which CELL INDEX is the enemy at
+// which cell index is the ENEMY at
 const enemyInitialPosition = gridWidth * gridHeight - 1;
 let enemyCurrentPosition = enemyInitialPosition;
-// let enemyPosition = { row: 0, column: 0 };
 
 // Populate the grid
-for (let i = 0; i < gridHeight; i++) {
-  for (let j = 0; j < gridWidth; j++) {
-    const cell = createCell();
-    cell.dataset.row = i;
-    cell.dataset.column = j;
-    gridElement.appendChild(cell);
-    // save the cell for later!
-    cells.push(cell);
-  }
+for (let i = 0; i < gridWidth * gridHeight; i++) {
+  const cell = createCell();
+  gridElement.appendChild(cell);
+  // Save the cell
+  cells.push(cell);
 }
 
 function createCell() {
@@ -75,20 +88,14 @@ function createCell() {
   return cell;
 }
 
-function showPlayer(classToAdd) {
+function showPlayer() {
   // Show the player in the currentPosition
   cells[currentPosition].classList.add("playerImg");
-  if (classToAdd) {
-    cells[currentPosition].classList.add(classToAdd);
-  }
 }
 
-function showEnemy(classToAdd) {
+function showEnemy() {
   // Show the enemy in the currentPosition
   cells[enemyCurrentPosition].classList.add("enemyImg");
-  if (classToAdd) {
-    cells[enemyCurrentPosition].classList.add(classToAdd);
-  }
 }
 
 function showItems(position) {
@@ -96,35 +103,20 @@ function showItems(position) {
 }
 
 function showDoor(position) {
-  // placeDoorRandomly();
   cells[position].classList.add("door");
 }
 
-// To change cell
 function removePlayer() {
   // Stop showing the player in the currentPosition
-  cells[currentPosition].classList.remove("playerImg", "left");
+  cells[currentPosition].classList.remove("playerImg");
 }
 
-//To change cell
 function removeEnemy() {
   // Stop showing the enemy in the currentPosition
-  cells[enemyCurrentPosition].classList.remove("enemyImg", "left");
+  cells[enemyCurrentPosition].classList.remove("enemyImg");
 }
 
-function catchItem(position) {
-  if (cells[position].classList.contains("items")) {
-    caughtItems++;
-    scoreDisplay.textContent = caughtItems;
-    cells[position].classList.remove("items");
-  }
-  if (caughtItems === totalItems && isThereADoor === false) {
-    isThereADoor = true;
-    placeDoorRandomly();
-  }
-}
-
-function movePlayer(newPosition, classToAdd) {
+function movePlayer(newPosition) {
   if (newPosition < 0) {
     return;
   }
@@ -142,8 +134,22 @@ function movePlayer(newPosition, classToAdd) {
     announceGameOver();
   }
 
+  function catchItem(position) {
+    if (cells[position].classList.contains("items")) {
+      winsound.play();
+      caughtItems++;
+      itemsCaught.textContent = caughtItems;
+      cells[position].classList.remove("items");
+    }
+    if (caughtItems === totalItems && isThereADoor === false) {
+      isThereADoor = true;
+      launch.play();
+      placeDoorRandomly();
+    }
+  }
+
   // Always show last
-  showPlayer(classToAdd);
+  showPlayer();
 }
 
 function announceGameOver() {
@@ -151,7 +157,7 @@ function announceGameOver() {
   popUp.classList.remove("hidden");
 }
 
-function moveEnemy(newPosition, classToAdd) {
+function moveEnemy(newPosition) {
   if (newPosition < 0) {
     return;
   }
@@ -167,7 +173,7 @@ function moveEnemy(newPosition, classToAdd) {
   }
 
   // Always show last
-  showEnemy(classToAdd);
+  showEnemy();
 }
 
 function decideMoveEnemy() {
@@ -225,8 +231,6 @@ showPlayer();
 intervalID = setInterval(decideMoveEnemy, 200);
 
 document.addEventListener("keydown", function (event) {
-  // console.log(event.key, event.key, event.code);
-
   switch (event.key) {
     case "ArrowUp":
       movePlayer(currentPosition - gridWidth);
@@ -282,7 +286,6 @@ function placeItemsRandomly() {
     return;
   }
   showItems(randomPosition);
-  nbItems++;
 }
 
 for (let i = 0; i < +totalItems; i++) {
