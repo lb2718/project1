@@ -5,19 +5,30 @@ const popUpBg = document.querySelector(".popUpContent");
 const gameOver = document.querySelector(".gameover");
 const tryAgain = document.querySelector(".tryagain");
 
+tryagainbutton.addEventListener("click", function (event) {
+  location.reload();
+});
+
 // startbutton.addEventListener("click", function (event) {
 //   popUp.classList.add("hidden");
 // });
 
-class Enemy {
-  constructor(position) {
-    this.position = position;
-  }
-}
-
 tryagainbutton.addEventListener("click", function (event) {
-  location.reload();
+  popUp.classList.add("hidden");
 });
+
+popUp.addEventListener("click", function () {
+  popUp.classList.add("hidden");
+});
+
+// AUDIO
+const fakeNews = document.querySelector(".fakenews");
+
+// class Enemy {
+//   constructor(position) {
+//     this.position = position;
+//   }
+// }
 
 const gridElement = document.querySelector(".grid");
 const buttonElement = document.querySelector("button");
@@ -151,6 +162,7 @@ function moveEnemy(newPosition, classToAdd) {
   removeEnemy();
   enemyCurrentPosition = newPosition;
   if (currentPosition === enemyCurrentPosition) {
+    fakeNews.play();
     announceGameOver();
   }
 
@@ -253,7 +265,6 @@ function removeWinner() {
   popUpBg.style.backgroundColor = "rgb(203, 248, 203)";
   gameOver.textContent = "You won";
   tryAgain.textContent = "Play again";
-
   popUp.classList.remove("hidden");
 }
 

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ropa+Sans&display=swap");
 
 * {
   box-sizing: border-box;
@@ -14,8 +15,12 @@ body {
 .containAll {
   display: flex;
   flex-direction: row;
-  height: 590px;
-  margin: 15px 0 0 0;
+  height: 100vh;
+  /* background-image: url("img/gr.png"); */
+  background-image: url("img/gr-gradien.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgb(247, 234, 240);
 }
 
 /* -------------------------------- LEFT DIV / SECTION -------------------------------- */
@@ -53,7 +58,10 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 60%;
+  backdrop-filter: blur(9px);
+  height: 100%;
 }
 
 button {
@@ -73,11 +81,14 @@ button {
   height: 100%;
   width: 100%;
   flex-wrap: wrap;
-  border: 3px solid rgb(196, 194, 194);
+  border: 1px solid rgb(255, 255, 255);
+  background-image: url("img/CLv5n5.png");
+  background-color: #cfffe7;
 }
 
 .cell {
-  /* border: 0.5px solid rgb(174, 175, 174); */
+  border: 0.5px solid rgb(247, 250, 247);
+  border-radius: 20px;
   width: calc(100% / 8);
   height: calc(100% / 8);
   background-size: contain;
@@ -89,35 +100,24 @@ button {
 
 /* Items that need to be caught to win */
 .items {
-  background-image: url("img/png-clipart-brown-cash-bag-money-bag-investment-united-states-dollar-coin-money-bag-horse-white.png");
+  background-image: url("img/corgi.png");
 }
 
 /* Player img */
 .playerImg {
-  background-image: url("img/unknown-person-icon-27.jpg");
+  background-image: url("img/trump.png");
 }
 
 /* Enemy img */
 .enemyImg {
-  background-image: url("img/unknown-person-icon-27.jpg");
-  background-color: red;
+  background-image: url("img/evileliz.png");
+  /* background-color: red; */
 }
 
 .door {
-  background-image: url("img/png-clipart-door-red-door-angle-rectangle.png");
+  background-image: url("img/friendsdoor.png");
+  background-size: cover;
 }
-
-.player.left {
-  transform: rotate(-90deg);
-}
-
-/* .player.right {
-  transform: rotate(+90deg);
-}
-
-.player.down {
-  transform: rotate(-90deg);
-} */
 
 /* @media (max-width:500px){
   .container {
@@ -153,13 +153,6 @@ button {
   margin: 0 auto;
 }
 
-/* //to rename  */
-/* #itemsCaught 
-} */
-
-#totalItems {
-}
-
 /* POP UP  */
 
 section {
@@ -168,43 +161,61 @@ section {
   display: flex;
   justify-content: center;
 }
-/* section.game {
-  border: 2px solid blue;
-  background-image: url("img/SI_3DSVC_SuperMarioBros_image1600w.jpeg");
-  background-size: cover;
-  margin-bottom: 2em;
-  position: relative;
-} */
+
 section.popUp {
-  /* border: 2px solid rgb(255, 0, 212); */
   background-color: transparent;
   position: absolute;
-  /* bottom: 0; */
   backdrop-filter: blur(3px);
   height: 100vh;
 }
+
 .popUpContent {
+  /* background-image: url("img/gradient-background.webp"); */
+  background-image: url("img/gr-gradien.png");
   margin: auto;
   height: 40%;
   width: 40%;
-  border: 1px solid rgb(141, 143, 141);
-  background-color: rgba(248, 213, 236, 0.837);
+  /* border: 0.5px solid rgb(255, 255, 255); */
+  background-color: #cfffe7;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* background: linear-gradient(
+    177deg,
+    rgb(255, 209, 244) 29%,
+    rgba(207, 255, 231, 1) 69%,
+    rgba(255, 255, 255, 1) 93% */
+  /* ); */
 }
 
 .tryagain {
+  font-family: "Press Start 2P", cursive;
   text-align: center;
   height: 20%;
   margin: auto;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.4s;
+  width: 40%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: rgb(228, 161, 200);
 }
 
 .tryagain:hover {
-  background-color: rgb(226, 248, 231);
-  /* cursor: cell; */
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.5s;
+  box-shadow: 7px 5px 56px -14px #d33f7d;
+  width: 38%;
+  border: none;
 }
+
+/* .tryagain:active {
+  transform: scale(0.97);
+  box-shadow: 7px 5px 56px -10px #c3d900;
+} */
 
 section.popUp.hidden {
   display: none;
@@ -213,4 +224,9 @@ section.popUp.hidden {
 .gameover {
   text-align: center;
   font-size: 3rem;
+  font-family: "Press Start 2P", cursive;
+}
+
+.fakenews {
+  display: none;
 }
