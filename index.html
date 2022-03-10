@@ -5,47 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TBD</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
     <div class="containAll">
       <div id="leftDiv">
-        <h1>T B D </h1>
-        <p>
-          <ul>
-            <li>Use arrow keys to move</li>
-            <li>Go get all the corgis </li>
-            <li>Don't get caught by Queenie!</li>
-            <li>Go through Monica's door and win</li>
-          </ul>
-        </p>
-    </div>
-    <div id="middleDiv">
-      <div class="container"><div class="grid"></div></div>
-      <!-- <button>Press play to enter</button> -->
-    </div>
-    
-    <div id="rightDiv">
-      <img class="rightSection" id="defaultPic"src="img/trump.png" alt="don">
-      <div class="rightSection "id="itemsCount"><h3>Items: <span id="itemsCaught">0</span> / <span id="itemsTotal">15</span></h3></div>
-      <!-- <div class="rightSection" id="lifeBar"></div> -->
-    </div>
-
-    <!-- POP UP-->
-    <section class="popUp hidden">
-      <div class="popUpContent">
-        <h2 class="gameover">FAKE NEWS</h2>
-        <button class="tryagain" id="tryagain">TRY AGAIN</button>
+        <h1>TBD</h1>
+        <ul>
+          <li>Use arrow keys to move</li>
+          <li>Go get all the corgis</li>
+          <li>Don't get caught by Queenie!</li>
+          <li>Go through Monica's door and win</li>
+        </ul>
       </div>
-    </section>
-    <audio controls class="fakenews" src="audio/you-are-fake-news_P60g69k.mp3"></audio>
-    <audio src=""></audio>
-    <audio src=""></audio>
-    <!-- <script src="../PopUp/popUp.js"></script>  -->
+      <div id="middleDiv">
+        <div class="container"><div class="grid"></div></div>
+        <!-- <button>Press play to enter</button> -->
+      </div>
 
-    <script src="./main.js"></script>
+      <div id="rightDiv">
+        <img
+          class="rightSection"
+          id="defaultPic"
+          src="img/trump.png"
+          alt="don"
+        />
+        <div class="rightSection" id="itemsCount">
+          <h3>
+            Items: <span id="itemsCaught">0</span> /
+            <span id="itemsTotal">15</span>
+          </h3>
+        </div>
+        <!-- <div class="rightSection" id="lifeBar"></div> -->
+      </div>
 
+      <!-- POP UP-->
+      <section class="popUp hidden">
+        <div class="popUpContent">
+          <h2 class="gameover">FAKE NEWS</h2>
+          <button class="tryagain" id="tryagain">TRY AGAIN</button>
+        </div>
+      </section>
+      <audio controls class="fakenews" src="audio/fakenews.mp3"></audio>
+      <audio controls class="goodjob" src="audio/good-job_Bbr5WOK.mp3"></audio>
+      <audio src=""></audio>
+      <!-- <script src="../PopUp/popUp.js"></script>  -->
+
+      <script src="./main.js"></script>
     </div>
   </body>
 </html>

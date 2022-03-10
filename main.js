@@ -1,28 +1,28 @@
-// POP UP
+// POP-UP WINDOWS
 const tryagainbutton = document.querySelector("#tryagain");
 const popUp = document.querySelector("section.popUp");
 const popUpBg = document.querySelector(".popUpContent");
 const gameOver = document.querySelector(".gameover");
 const tryAgain = document.querySelector(".tryagain");
 
+// Reload page when clicking "try again"
 tryagainbutton.addEventListener("click", function (event) {
   location.reload();
 });
 
-// startbutton.addEventListener("click", function (event) {
+// // Click on "try again" btn and pop-up disappears
+// tryagainbutton.addEventListener("click", function (event) {
 //   popUp.classList.add("hidden");
 // });
 
-tryagainbutton.addEventListener("click", function (event) {
-  popUp.classList.add("hidden");
-});
-
-popUp.addEventListener("click", function () {
-  popUp.classList.add("hidden");
-});
+// // Click anywhere on page and pop-up disappears
+// popUp.addEventListener("click", function () {
+//   popUp.classList.add("hidden");
+// });
 
 // AUDIO
 const fakeNews = document.querySelector(".fakenews");
+const goodjob = document.querySelector(".goodjob");
 
 // class Enemy {
 //   constructor(position) {
@@ -266,6 +266,7 @@ function removeWinner() {
   gameOver.textContent = "You won";
   tryAgain.textContent = "Play again";
   popUp.classList.remove("hidden");
+  goodjob.play();
 }
 
 // Position items randomly
@@ -274,7 +275,8 @@ function placeItemsRandomly() {
   if (
     randomPosition === initialPosition ||
     randomPosition === enemyInitialPosition ||
-    cells[randomPosition].classList.contains("items")
+    cells[randomPosition].classList.contains("items") ||
+    randomPosition === cells.length - 2
   ) {
     placeItemsRandomly();
     return;
