@@ -20,16 +20,6 @@ popUp.addEventListener("click", function (event) {
   location.reload();
 });
 
-// // Click on "try again" btn and pop-up disappears
-// tryagainbutton.addEventListener("click", function (event) {
-//   popUp.classList.add("hidden");
-// });
-
-// // Click anywhere on page and pop-up disappears
-// popUp.addEventListener("click", function () {
-//   popUp.classList.add("hidden");
-// });
-
 enterBtn.addEventListener("click", function (event) {
   popUpStart.classList.add("hide");
 });
@@ -43,14 +33,6 @@ const fakeNews = document.querySelector(".fakenews");
 const goodjob = document.querySelector(".goodjob");
 const winsound = document.querySelector(".winsound");
 const launch = document.querySelector(".launch");
-
-// add name?
-// class Enemy {
-//   constructor(position) {
-//     this.position = position;
-//   }
-
-// }
 
 const gridElement = document.querySelector(".grid");
 const itemsCaught = document.querySelector("#itemsCaught");
@@ -267,7 +249,7 @@ function removeWinner() {
   cells[currentPosition].classList.remove("playerImg");
   clearInterval(intervalID);
   popUpBg.style.backgroundColor = "rgb(203, 248, 203)";
-  gameOver.textContent = "You won";
+  gameOver.textContent = "You won! Yay!";
   tryAgain.textContent = "Play again";
   popUp.classList.remove("hidden");
   goodjob.play();

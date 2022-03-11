@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TBD</title>
+    <title>Lucid Nightmare</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="containAll">
       <div id="leftDiv">
-        <h1>TBD</h1>
+        <h1>Lucid Nightmare</h1>
+        <h2>Queen on the loose</h2>
         <ul>
           <li>Use arrow keys to move</li>
-          <li>Go get all the corgis</li>
+          <li>Go steal all the corgis</li>
           <li>Don't get caught by Queenie!</li>
-          <li>Go through Monica's door and win</li>
+          <li>Go through the door and win</li>
         </ul>
       </div>
       <div id="middleDiv">
@@ -30,18 +31,18 @@
           alt="don"
         />
         <div class="rightSection" id="itemsCount">
-          <h3>
+          <h3 class="scorebar">
             Items: <span id="itemsCaught">0</span> /
             <span id="itemsTotal">15</span>
           </h3>
         </div>
-        <!-- <div class="rightSection" id="lifeBar"></div> -->
       </div>
 
       <!-- POP UP-->
       <section class="popUp hidden">
         <div class="popUpContent">
           <h2 class="gameover">FAKE NEWS</h2>
+          <h3>You lost :(</h3>
           <button class="tryagain" id="tryagain">TRY AGAIN</button>
         </div>
       </section>
@@ -57,12 +58,27 @@
         class="launch"
         src="audio/sfx_patcher_button_launch.mp3"
       ></audio>
+      <audio controls class="ps2" src="audio/ps2_start_up.mp3"></audio>
 
       <!-- POP UP 2-->
       <section class="popUpStart hidden">
         <div class="popUpStartContent">
-          <h2 class="context">CONTEXT</h2>
-          <button class="enterBtn" id="enterBtn">PRESS ENTER TO START</button>
+          <div class="words word-1">
+            <span>L</span><span>U</span><span>C</span><span>I</span
+            ><span>D&nbsp;</span><span>&nbsp;N</span><span>I</span
+            ><span>G</span><span>H</span><span>T</span><span>M</span><span>A</span
+              ><span>R</span><span>E</span>
+          </div>
+          <div class="popupflex"><img id="queen" src="img/evileliz.png" alt="queen england" />
+          <p class="intro">
+            You stole the Queen's magnificent pink hat and she's
+            trying to get it back! But it looks better on you, so you decide to also steal her army of corgis to
+            teach her a lesson. <span class="outlinedtxt">Wait what?! .. are you dreaming?</span> YES! But you are in control and you can decide to be WHOEVER you want to
+            be! Let's find out who your dream person is.
+           
+          </div>
+          </p>
+          <button class="enterBtn" id="enterBtn">START DREAMING NOW</button>
         </div>
       </section>
 
